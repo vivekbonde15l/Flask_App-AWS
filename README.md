@@ -43,11 +43,11 @@ Step 10 :- docker login
 Username :- vivekbonde15l
 Password :- 
 
-Step 11:- docker tag flaskapp:latest vivekbonde15l /flaskapp:latest
+Step 11:- docker tag flaskapp:latest vivekbonde2003 /flaskapp:latest
 
 Step 12 :- docker images
 
-Step 13 :- docker push vivekbonde15l/flaskapp:latest
+Step 13 :- docker push vivekbonde2003/flaskapp:latest
 
 Step 14 :- sudo apt install docker-compose
 
@@ -57,10 +57,8 @@ Write in File :- Yet Another Markup Language
 
 version: '3'
 services:
-  
-  backend:
-    build:
-      context: .
+   backend:
+    image : vivekbonde2003/flaskapp:latest
     ports:
       - "8080:8080"
     environment:
@@ -78,6 +76,8 @@ services:
       MYSQL_DATABASE: "myDb"
       MYSQL_USER: "admin"
       MYSQL_PASSWORD: "admin"
+    ports :
+        - "3306:3306"
     volumes:
       - ./message.sql:/docker-entrypoint-initdb.d/message.sql   # Mount sql script into container's /docker-entrypoint-initdb.d directory to get table automatically created
       - mysql-data:/var/lib/mysql  # Mount the volume for MySQL data storage
