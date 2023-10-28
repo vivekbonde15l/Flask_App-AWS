@@ -30,5 +30,13 @@ def submit():
     cur.close()
     return redirect(url_for('hello'))
 
+@app.route('/delete/<int:message_id>', methods=['POST'])
+def delete(message_id):
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM messages WHERE id = %s', [message_id])
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('hello'))
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

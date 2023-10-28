@@ -96,7 +96,12 @@
         <h1>Hello Dosto, 
             Let's make a 2 Tier Application with Flask and MYSQL!</h1>
         {% for message in messages %}
-            <p>{{ message[0] }}</p>
+            <p>
+                {{ message[0] }}
+                <form action="/delete/{{ loop.index }}" method="post" style="display: inline;">
+                    <input type="submit" value="Delete">
+                </form>
+            </p>
         {% endfor %}
 
         <form action="/submit" method="post">
