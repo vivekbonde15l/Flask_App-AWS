@@ -1,0 +1,73 @@
+In Master Inatance :- 
+S1:- git clone https://github.com/vivekbonde15l/Flask_App-AWS-.git
+S2:- cd F tab
+S3:- mkdir k8s
+cd k8s
+vim flaskapp-pod.yml
+Paste in File :- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flaskapp
+spec:
+  containers:
+  - name: flaskapp
+    image: vivekbonde2003/flaskapp
+    env:
+      - name: MYSQL_HOST
+        value: "mysql"          # this is your mysql's service clusture IP, Make sure to change it with yours
+      - name: MYSQL_PASSWORD
+        value: "admin"
+      - name: MYSQL_USER
+        value: "root"
+      - name: MYSQL_DB
+        value: "myDb"
+    ports:
+      - containerPort: 5000
+    imagePullPolicy: Always
+
+S4:- kubectl apply -f flaskapp-pod.yml
+
+kubectl get pods
+
+S5:- Create a new vim file by command vim flaskapp-deployment.yml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskapp
+  labels:
+    app: flaskapp
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: flaskapp
+  template:
+    metadata:
+      labels:
+        app: flaskapp
+    spec:
+      containers:
+        - name: flaskapp
+          image: vivekbonde2003/flaskapp
+          env:
+            - name: MYSQL_HOST
+              value: "mysql"          # this is your mysql's service clusture IP, Make sure to change it with yours
+            - name: MYSQL_PASSWORD
+              value: "admin"
+            - name: MYSQL_USER
+              value: "root"
+            - name: MYSQL_DB
+              value: "mydb"
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: Always
+
+S6:- kubectl get pods
+
+S7 :- for scale down :- 
+kubectl scale deployment flaskapp-deployment --replicas=2
+
+S8 :- for scale up :- kubectl scale deployment flaskapp-deployment --replicas=10
