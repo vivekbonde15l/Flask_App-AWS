@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: 2tierapp
+  name: twotierapp
   labels:
-    app: 2tierapp
+    app: twotierapp
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: 2tierapp
+      app: twotierapp
   template:
     metadata:
       labels:
-        app: 2tierapp
+        app: twotierapp
     spec:
       containers:
-        - name: 2tierapp
+        - name: twotierapp
           image: vivekbonde2003/flaskapp:latest
           env:
             - name: MYSQL_HOST

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: 2tierapp-svc
+  name: twotierapp
 spec:
   selector:
-    app: 2tierapp
+    app: twotierapp
   ports:
     - protocol: TCP
       port: 80
